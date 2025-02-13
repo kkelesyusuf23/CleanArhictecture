@@ -1,0 +1,4 @@
+﻿CleanArhicteture.Domain projesine çift tıkladığımızda 
+	  <TreatWarnigsAsErrors>true</TreatWarnigsAsErrors>
+bu satırı dahil ediyoruz.
+ bu satır projede bulunan warning leri de hata olarak göstererek projeyi temiz bir şekilde götürebilmemize olanak tanıyor.
