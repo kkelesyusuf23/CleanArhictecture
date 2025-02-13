@@ -15,7 +15,7 @@ namespace CleanArhictecture.Domain.Employees
         public string FullName => string.Join(" ", FirstName, LastName); // veritabanında kaydetmez ön tarafta ikisini birlikte gösterebilmemize olanak tanır
         public DateOnly BirthfDate { get; set; }
         public decimal Salary { get; set; }
-        public PersonelInformation? PersonelInformation { get; set; }
+        public PersonelInformation PersonelInformation { get; set; } = default!;
         public Address? Address { get; set; }
         
     }
