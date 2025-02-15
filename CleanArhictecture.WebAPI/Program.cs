@@ -3,6 +3,9 @@ using CleanArhictecture.Application;
 using Scalar.AspNetCore;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.OData;
+using CleanArhictecture.WebAPI.Controllers;
+using CleanArhictecture.WebAPI.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,15 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddCors();
 builder.Services.AddOpenApi();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddOData(opt => 
+opt
+.Select()
+.Filter()
+.Count()
+.Expand()
+.OrderBy()
+.SetMaxTop(null)
+.AddRouteComponents("odata",AppODataController.GetEdmModel()));
 
 builder.Services.AddRateLimiter(x => x.AddFixedWindowLimiter("fixed",cfg =>
 {
@@ -36,6 +47,8 @@ app.UseCors(x => x
 .AllowCredentials()
 .AllowAnyMethod()
 .SetIsOriginAllowed(t => true));
+
+app.RegisterRoutes();
 
 app.MapControllers().RequireRateLimiting("fixed");
 

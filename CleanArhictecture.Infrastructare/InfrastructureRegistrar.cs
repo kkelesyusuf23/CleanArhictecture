@@ -1,6 +1,7 @@
 ﻿using CleanArhictecture.Domain.Employees;
 using CleanArhictecture.Infrastructare.Context;
 using CleanArhictecture.Infrastructare.Repositories;
+using GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,8 @@ namespace CleanArhictecture.Infrastructare
                 opt.UseSqlServer(connectionString);
             });
 
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());
 
             services.Scan(opt => opt
             .FromAssemblies(typeof(InfrastructureRegistrar).Assembly)
